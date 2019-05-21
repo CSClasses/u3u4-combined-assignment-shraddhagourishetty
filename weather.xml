@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<Province>
+	<weather id="1001">
+		<name>Ontario</name>
+		<city>waterloo</city>
+		<temperature>20C</temperature>
+		<humidity>38%</humidity>
+		<precipitation>0cm</precipitation>
+		<windspeed>8 Km/h</windspeed>
+	</weather>
+
+	<weather id="2001">
+		<name>British Columbia</name>
+		<city>Vancouver</city>
+		<temperature>16C</temperature>
+		<humidity>66%</humidity>
+		<precipitation>0cm</precipitation>
+		<windspeed>16 Km/h</windspeed>
+	</weather>
+
+	<weather id="3001">
+		<name>Quebec</name>
+		<city>Montreal</city>
+		<temperature>4C</temperature>
+		<humidity>34%</humidity>
+		<precipitation>0cm</precipitation>
+		<windspeed>6 Km/h</windspeed>
+	</weather>
+
+	<weather id="4001">
+		<name>Alberta</name>
+		<city>Calgary</city>
+		<temperature>10C</temperature>
+		<humidity>74%</humidity>
+		<precipitation>1.3cm</precipitation>
+		<windspeed>10 Km/h</windspeed>
+	</weather>
+
+	<weather id="5001">
+		<name>Manitoba</name>
+		<city>winnipeg</city>
+		<temperature>13C</temperature>
+		<humidity>48%</humidity>
+		<precipitation>1.2cm</precipitation>
+		<windspeed>11 Km/h</windspeed>
+	</weather>
+
+	<weather id="6001">
+		<name>Nova Scotia</name>
+		<city>Halifax</city>
+		<temperature>9C</temperature>
+		<humidity>77%</humidity>
+		<precipitation>0cm</precipitation>
+		<windspeed>14 Km/h</windspeed>
+	</weather>
+</Province>

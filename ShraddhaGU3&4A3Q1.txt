@@ -1,0 +1,185 @@
+/*
+ * Shraddha Gourishetty
+ * Unit 3&4     
+ * Question 1
+ * Assignment 3
+ * Date: 5/5/2019
+ */
+package shraddhagu3.pkg4a3q1;
+
+//Import Statements
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class ShraddhaGU34A3Q1 {
+  
+    public static void main(String[] args) throws Exception {
+        
+        //Displaying the window Jpanel
+       JPanel panel = new JPanel();
+               panel.setBackground(new Color(0, 0, 0));
+               panel.setSize(new Dimension(250, 32));
+               panel.setLayout(null);
+               JLabel label = new JLabel("wheather report!");
+               label.setForeground(new Color(255, 255, 0));
+               label.setHorizontalAlignment(SwingConstants.CENTER);
+               label.setFont(new Font("Arial", Font.BOLD, 11));
+               label.setBounds(0, 0, 250, 32);
+               panel.add(label);
+
+               UIManager.put("OptionPane.minimumSize",new Dimension(270, 120));
+
+               Object[] options = {"Ontario" , "British Columbia" , "Quebec" , "Alberta" , "Monitoba" , "Nova Scotia"};
+               Object l = JOptionPane.showInputDialog(null, panel,
+                       "Canada's Weather", JOptionPane.PLAIN_MESSAGE, null, options, options[5]);
+               weatherBean weatherBean =  readXML(l.toString());
+               
+               //Displaying the values 
+               String message = "Province Name: " + weatherBean.getName() +"\n"+                      
+                       "City: " + weatherBean.getCity() +"\n"+
+                      "Humidity: " + weatherBean.getHumidity() + "\n" +
+                      "Precipitation: " + weatherBean.getPrecipitation()+ "\n"
+                      +"Temperature: " + weatherBean.getTemperature()+ "\n"
+                      +"WindSpeed: " + weatherBean.getWindspeed();
+
+               JOptionPane.showMessageDialog(null ,message );
+       }
+
+ 
+    //Function to display the details along with the values
+    private static weatherBean getWeather(Node node) {
+       weatherBean weather = new weatherBean();
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            weather.setName(getTagValue("name", element));   
+            
+            weather.setName(element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue());
+                     System.out.println("Province Name : " + element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue());
+                     
+            weather.setCity(element.getElementsByTagName("city").item(0).getChildNodes().item(0).getNodeValue());
+                     System.out.println("city : " + element.getElementsByTagName("city").item(0).getChildNodes().item(0).getNodeValue());         
+
+              weather.setTemperature(element.getElementsByTagName("temperature").item(0).getChildNodes().item(0).getNodeValue());
+                     System.out.println("temperature: " +element.getElementsByTagName("temperature").item(0).getChildNodes().item(0).getNodeValue());
+
+              weather.setHumidity(element.getElementsByTagName("humidity").item(0).getChildNodes().item(0).getNodeValue());
+                     System.out.println("humidity : " + element.getElementsByTagName("humidity").item(0).getChildNodes().item(0).getNodeValue());
+
+              weather.setPrecipitation(element.getElementsByTagName("precipitation").item(0).getChildNodes().item(0).getNodeValue());
+                     System.out.println("Precipitation : " + element.getElementsByTagName("precipitation").item(0).getChildNodes().item(0).getNodeValue());
+
+              weather.setWindspeed(element.getElementsByTagName("windspeed").item(0).getChildNodes().item(0).getNodeValue());
+                     System.out.println("Windspeed : " + element.getElementsByTagName("windspeed").item(0).getChildNodes().item(0).getNodeValue());
+        }
+
+        return weather;
+    }
+
+        //Read the XML file 
+       static weatherBean readXML(String province){
+
+              try {
+                           File fXmlFile = new File("C:/Users/lenovo/Documents/NetBeansProjects/weather.xml");
+                           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                           Document doc = dBuilder.parse(fXmlFile);
+                                  
+                           doc.getDocumentElement().normalize();
+                           System.out.println("Root element :" + doc.getDocumentElement().getNodeName());                                     
+                           NodeList nList = doc.getElementsByTagName("weather");
+                           List<weatherBean> weatherBeanList = new ArrayList<weatherBean>();
+                           
+                   for (int i = 0; i < nList.getLength(); i++) {
+                   weatherBeanList.add(getWeather(nList.item(i)));
+                   }
+
+                   for (weatherBean weather : weatherBeanList) {
+                   if (province.equalsIgnoreCase(weather.getName())){
+                           System.out.println(weather.toString());
+                           return weather;
+                   }
+                            
+                   }
+
+                         } catch (Exception e) {
+                            e.printStackTrace();
+                         }                        
+                            return new weatherBean();                          
+                       }
+                                              
+              static class weatherBean{
+                     private String name;                     
+                     private String city;
+                     private String temperature;
+                     private String humidity;
+                     private String precipitation;
+                     private String windspeed;
+                     
+                     public String getName() {
+                           return name;
+                     }
+
+                     public void setName(String name) {
+                           this.name = name;
+                     }
+                     public String getCity() {
+                           return city;
+                     }
+
+                     public void setCity(String city) {
+                           this.city = city;
+                     }
+                     public String getTemperature() {
+                           return temperature;
+                     }
+                                        
+                     public void setTemperature(String temperature) {
+                           this.temperature = temperature;
+                     }
+                     public String getHumidity() {
+                           return humidity;
+                     }
+
+                     public void setHumidity(String humidity) {
+                           this.humidity = humidity;
+                     }
+                     public String getPrecipitation() {
+                           return precipitation;
+                     }
+
+                     public void setPrecipitation(String precipitation) {
+                           this.precipitation = precipitation;
+                     }
+                     
+                     public String getWindspeed() {
+                           return windspeed;
+                     }
+                     public void setWindspeed(String windspeed) {
+                           this.windspeed = windspeed;
+                     }
+              }
+
+           private static  String getTagValue(String tag, Element element) {
+               NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+               Node node = (Node) nodeList.item(0);
+               return node.getNodeValue();
+           }
+}
+
+//The normalization in try catch block is taken from the website below in line 101
+//http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
