@@ -1,0 +1,147 @@
+/*
+ * Shraddha Gourishetty
+ * Assignment 3
+ * unit # & 4
+ * Question 5
+ * Date: 14/05/19
+ */
+package shraddhaga1u3.pkg4q5;
+
+//Import statements
+import javax.swing.*;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ShraddhaGA1U34Q5 implements  ActionListener{
+
+    // Definition of global values and items
+    int player1Amount = 0;
+    int player2Amount = 0;
+
+    JPanel titlePanel, scorePanel, buttonPanel;
+    JLabel player1Label, player2Label, player1Score, player2Score;
+    JButton player1Button, player2Button, resetButton;
+
+    public JPanel createContentPane (){
+
+        //create a bottom JPane.
+        JPanel totalGUI = new JPanel();
+        totalGUI.setLayout(null);
+
+        // Create Panel to contain the title labels
+        titlePanel = new JPanel();
+        titlePanel.setLayout(null);
+        titlePanel.setLocation(10, 0);
+        titlePanel.setSize(250, 30);
+        totalGUI.add(titlePanel);
+
+        player1Label = new JLabel("Player 1");
+        player1Label.setLocation(0, 0);
+        player1Label.setSize(120, 30);
+        player1Label.setHorizontalAlignment(0);
+        player1Label.setForeground(Color.red);
+        titlePanel.add(player1Label);
+
+        player2Label = new JLabel("Player 2");
+        player2Label.setLocation(130, 0);
+        player2Label.setSize(120, 30);
+        player2Label.setHorizontalAlignment(0);
+        player2Label.setForeground(Color.blue);
+        titlePanel.add(player2Label);
+
+        // Create Panel to contain the score labels.
+        scorePanel = new JPanel();
+        scorePanel.setLayout(null);
+        scorePanel.setLocation(10, 40);
+        scorePanel.setSize(260, 30);
+        totalGUI.add(scorePanel);
+
+        player1Score = new JLabel(""+player1Amount);
+        player1Score.setLocation(0, 0);
+        player1Score.setSize(120, 30);
+        player1Score.setHorizontalAlignment(0);
+        scorePanel.add(player1Score);
+
+        player2Score = new JLabel(""+player2Amount);
+        player2Score.setLocation(130, 0);
+        player2Score.setSize(120, 30);
+        player2Score.setHorizontalAlignment(0);
+        scorePanel.add(player2Score);
+
+        // Create Panel to contain all the JButtons.
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(null);
+        buttonPanel.setLocation(10, 80);
+        buttonPanel.setSize(260, 70);
+        totalGUI.add(buttonPanel);
+
+        //Using ActionListener 
+        // it performs its action out when the button is pressed.
+        player1Button = new JButton("Player1 Score");
+        player1Button.setLocation(0, 0);
+        player1Button.setSize(120, 30);
+        player1Button.addActionListener(this);
+        buttonPanel.add(player1Button);
+
+        player2Button = new JButton("Player2 Score");
+        player2Button.setLocation(130, 0);
+        player2Button.setSize(120, 30);
+        player2Button.addActionListener(this);
+        buttonPanel.add(player2Button);
+
+        resetButton = new JButton("Reset Score");
+        resetButton.setLocation(0, 40);
+        resetButton.setSize(250, 30);
+        resetButton.addActionListener(this);
+        buttonPanel.add(resetButton);
+        
+        totalGUI.setOpaque(true);
+        return totalGUI;
+    }
+
+    // It is a method that catches any events with an ActionListener attached.
+    public void actionPerformed(ActionEvent e) {
+        // Using an if statement, to determine which button is pressed
+        if(e.getSource() == player1Button)
+        {
+            player1Amount = player1Amount + 1;
+            player1Score.setText(""+player1Amount);
+        }
+        else if(e.getSource() == player2Button)
+        {
+            player2Amount = player2Amount + 1;
+            player2Score.setText(""+player2Amount);
+        }
+        else if(e.getSource() == resetButton)
+        {
+            player1Amount = 0;
+            player2Amount = 0;
+            player1Score.setText(""+player1Amount);
+            player2Score.setText(""+player2Amount);
+        }
+    }
+
+    private static void createAndShowGUI() {
+
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JFrame frame = new JFrame("FUN GAME :)");
+
+        //Create content pane.
+        ShraddhaGA1U34Q5 demo = new ShraddhaGA1U34Q5();
+        frame.setContentPane(demo.createContentPane());
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(280, 190);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        //create and show the application's GUI.
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+}
